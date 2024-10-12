@@ -26,7 +26,7 @@ void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTur
         (*currentCol)++;
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
-        if (validMove(*currentCol)) {
+        if (isValidMove(*currentCol)) {
             int8_t row = dropToken(*currentCol, *currentPlayer);
             if (row != -1 && checkWin(*currentPlayer)) {
                 // flash winner
