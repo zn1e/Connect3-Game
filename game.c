@@ -43,13 +43,21 @@ int main(void)
         if (playerTurn) {
             displayBoard(currentCol, currentPlayer, 1);
             handleInput(&currentCol, &currentPlayer, &playerTurn);
+
+            if (checkWin(currentPlayer)) {
+                displayWinner(currentPlayer);
+                break;
+            }  
+
         } else {
             displayBoard(currentCol, currentPlayer, 0);
             irCommReceiveMove(&currentCol, &playerTurn);
+            
+            if (checkWin(currentPlayer)) {
+                displayWinner(currentPlayer);
+                break;
+            }
         }
 
-        if (checkWin(currentPlayer)) {
-            displayWinner(currentPlayer);
-        }
     }
 }

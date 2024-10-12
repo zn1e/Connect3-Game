@@ -29,7 +29,7 @@ void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTur
         if (isValidMove(*currentCol)) {
             int8_t row = dropToken(*currentCol, *currentPlayer);
             if (row != -1 && checkWin(*currentPlayer)) {
-                // flash winner
+                return;
             }
         }
 
