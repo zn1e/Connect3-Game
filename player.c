@@ -22,7 +22,7 @@ void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTur
     if (navswitch_push_event_p(NAVSWITCH_WEST) && *currentCol > 0) {
         (*currentCol)--;
     }
-    if (navswitch_push_event_p(NAVSWITCH_EAST) && *current_col < COLS - 1) {
+    if (navswitch_push_event_p(NAVSWITCH_EAST) && *currentCol < COLS - 1) {
         (*currentCol)++;
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
