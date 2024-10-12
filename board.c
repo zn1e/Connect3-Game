@@ -51,7 +51,21 @@ uint8_t checkWin(uint8_t player)
         }
     }
     
-    // need diagonal check as well
+    for (uint8_t i = 1; i < ROWS - 2; i++) {
+        for (uint8_t j = 0; j < COLS - 2; j++) {
+            if (board[i][j] == player && board[i + 1][j + 1] == player && board[i + 2][j + 2] == player) {
+                return 1;
+            }
+        }
+    }
+
+    for (uint8_t i = 2; i < ROWS; i++) {
+        for (uint8_t j = 0; j < COLS - 2; j++){
+            if (board[i][j] == player && board[i - 1][j + 1] == player && board[i - 2][j + 2] == player) {
+                return 1;
+            }
+        }
+    }
 
     return 0;
 }
