@@ -6,7 +6,7 @@
 
 #include "game.h"
 #include "board.h"
-#include "display.h"
+#include "matrix_display.h"
 #include "ir_comm.h"
 #include "player.h"
 #include "ir_uart.h"

@@ -4,7 +4,7 @@
  * @brief
  */
 
-#include "display.h"
+#include "matrix_display.h"
 #include "ledmat.h"
 #include "board.h"
 #include "pacer.h"

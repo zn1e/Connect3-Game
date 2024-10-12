@@ -4,8 +4,8 @@
  * @brief
  */
 
-#ifndef DISPLAY_H
-#define DISPLAY_H
+#ifndef MATRIX_DISPLAY_H
+#define MATRIX_DISPLAY_H
 
 #include "system.h"
 
