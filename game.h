@@ -14,4 +14,4 @@ void gameInit(void);
 int main(void);
 
 
-#endif GAME_H
+#endif

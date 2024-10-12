@@ -9,6 +9,7 @@
 #include "board.h"
 #include "pacer.h"
 #include "tinygl.h"
+#include "../fonts/font5x7_1.h"
 
 #define PACER_RATE 500
 #define BLINK_RATE 2
@@ -27,7 +28,7 @@ void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
     
     blinkCounter++;
     if (blinkCounter >= (PACER_RATE / (2 * BLINK_RATE))) {
-        blinkState != blinkState;
+        blinkState = !blinkState;
         blinkCounter = 0;
     }
 
@@ -56,7 +57,7 @@ void displayWinner(uint8_t player)
 {
     tinygl_init(PACER_RATE);
     tinygl_font_set(&font5x7_1);
-    tinygl_test_speed_set(10);
+    tinygl_text_speed_set(10);
 
     if (player == 1) {
         tinygl_text("YOU WIN!");
@@ -64,3 +65,4 @@ void displayWinner(uint8_t player)
         tinygl_text("YOU LOSE!");
     }
 }
+
