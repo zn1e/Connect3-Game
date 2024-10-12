@@ -24,6 +24,13 @@ void displayInit(void)
 
 void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
 {
+    
+    blinkCounter++;
+    if (blinkCounter >= (PACER_RATE / (2 * BLINK_RATE))) {
+        blinkState != blinkState;
+        blinkCounter = 0;
+    }
+
     for (uint8_t col = 0; col < COLS; col++) {
         uint8_t colPattern = 0;
 
@@ -42,12 +49,6 @@ void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
         ledmat_display_column(~colPattern, col);
 
         pacer_wait();
-    }
-
-    blinkCounter++;
-    if (blinkCounter >= (PACER_RATE / (2 * BLINK_RATE))) {
-        blinkState != blinkState;
-        blinkCounter = 0;
     }
 }
 
