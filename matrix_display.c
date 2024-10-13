@@ -47,7 +47,7 @@ void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
             }
         }
 
-        ledmat_display_column(~colPattern, col);
+        ledmat_display_column(colPattern, col);
 
         pacer_wait();
     }

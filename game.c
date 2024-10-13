@@ -1,6 +1,6 @@
 /**
  * @file game.c
- * @author Moises Allen Montalbo (mam417)
+ * @author Moises Allen Montalbo (mam417) ShunZhi Zhang (szh139)
  * @brief
  */
 
@@ -10,7 +10,6 @@
 #include "ir_comm.h"
 #include "player.h"
 #include "ir_uart.h"
-#include <stdbool.h>
 
 static uint8_t currentCol = 0;
 static uint8_t currentPlayer = 1;

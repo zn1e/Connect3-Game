@@ -1,6 +1,6 @@
 /**
  * @file game.h
- * @author Moises Allen Montalbo (mam417)
+ * @author Moises Allen Montalbo (mam417) ShunZhi Zhang (szh139)
  * @brief
  */
 
