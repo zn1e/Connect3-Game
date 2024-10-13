@@ -13,7 +13,7 @@
 
 static uint8_t currentCol = 0;
 static uint8_t currentPlayer = 1;
-static uint8_t playerTurn = 1;
+static uint8_t playerTurn = 0;
 static bool isPlayer1 = true;
 
 void gameInit(void)

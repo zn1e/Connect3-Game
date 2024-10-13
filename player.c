@@ -17,31 +17,24 @@ void playerInit(void)
 
 void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTurn)
 {
-    if (*playerTurn) {
-        navswitch_update();
+    navswitch_update();
 
-        if (navswitch_push_event_p(NAVSWITCH_WEST) && *currentCol > 0) {
-            (*currentCol)--;
-        }
-        if (navswitch_push_event_p(NAVSWITCH_EAST) && *currentCol < COLS - 1) {
-            (*currentCol)++;
-        }
-        if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
-            if (isValidMove(*currentCol)) {
-                int8_t row = dropToken(*currentCol, *currentPlayer);
-                if (row != -1 && checkWin(*currentPlayer)) {
-                    return;
-                }
-            }
-
+    if (navswitch_push_event_p(NAVSWITCH_WEST) && *currentCol > 0) {
+        (*currentCol)--;
+    }
+    if (navswitch_push_event_p(NAVSWITCH_EAST) && *currentCol < COLS - 1) {
+        (*currentCol)++;
+    }
+    if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
+        if (isValidMove(*currentCol)) {
+                
             if (ir_uart_write_ready_p()) {
                 ir_uart_putc(*currentCol);
             }
-            playerSwitch(currentPlayer);
-            *playerTurn = 0;
         }
+        playerSwitch(currentPlayer);
+        *playerTurn = 0;
     }
-
 }
 
 void playerSwitch(uint8_t* currentPlayer)
