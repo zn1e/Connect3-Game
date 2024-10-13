@@ -27,13 +27,14 @@ void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTur
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
         if (isValidMove(*currentCol)) {
-                
             if (ir_uart_write_ready_p()) {
-                ir_uart_putc(*currentCol);
+                ir_uart_putc('0' + *currentCol);
             }
+            dropToken(*currentCol, *currentPlayer);
+            playerSwitch(currentPlayer);
+            *playerTurn = 0;
         }
-        playerSwitch(currentPlayer);
-        *playerTurn = 0;
+
     }
 }
 

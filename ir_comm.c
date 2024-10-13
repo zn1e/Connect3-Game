@@ -16,10 +16,13 @@ void irCommInit(void)
 void irCommReceiveMove(uint8_t* opponentCol, uint8_t* playerTurn)
 {
     if (ir_uart_read_ready_p()) {
-        *opponentCol = ir_uart_getc();
-        if (isValidMove(*opponentCol)) {
-            dropToken(*opponentCol, 2);
-            *playerTurn = 1;
+        char received = ir_uart_getc();
+        if (received >= '0' && received < ('0' + COLS)) {
+            *opponentCol = received - '0';
+            if (isValidMove(*opponentCol)) {
+                dropToken(*opponentCol, 2);
+                *playerTurn = 1;
+            }
         }
     }
 }

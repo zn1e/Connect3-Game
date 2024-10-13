@@ -12,7 +12,7 @@
 #include "ir_uart.h"
 
 static uint8_t currentCol = 0;
-static uint8_t currentPlayer = 1;
+static uint8_t currentPlayer = 0;
 static uint8_t playerTurn = 0;
 static bool isPlayer1 = true;
 
@@ -25,16 +25,22 @@ void gameInit(void)
     playerInit();
 
     if (ir_uart_read_ready_p()) {
-        isPlayer1 = false;
-        currentPlayer = 2;
-        playerTurn = 0;
-    
+        char received = ir_uart_getc();
+        if (received == 'S') {
+            isPlayer1 = false;
+            currentPlayer = 2;
+            playerTurn = 0;
+        } else {
+            isPlayer1 = true;
+            currentPlayer = 1;
+            playerTurn = 1;
+            ir_uart_putc('S');
+        }
     } else {
-        isPlayer1= true;
+        isPlayer1 = true;
         currentPlayer = 1;
         playerTurn = 1;
-
-        ir_uart_putc('1');
+        ir_uart_putc('S');
     }
 }
 
