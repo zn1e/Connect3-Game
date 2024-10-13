@@ -64,10 +64,10 @@ board.o: board.c ../../drivers/avr/system.h board.h
 ir_comm.o: ir_comm.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ir_comm.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-player.o: player.c ../../drivers/navswitch.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h
+player.o: player.c ../../drivers/navswitch.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h game.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-matrix_display.o: matrix_display.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h board.h matrix_display.h 
+matrix_display.o: matrix_display.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h board.h matrix_display.h game.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 

@@ -15,24 +15,25 @@ void playerInit(void)
     ir_uart_init();
 }
 
-void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTurn)
+void handleInput(GameState_t* gameState)
 {
     navswitch_update();
 
-    if (navswitch_push_event_p(NAVSWITCH_WEST) && *currentCol > 0) {
-        (*currentCol)--;
+    if (navswitch_push_event_p(NAVSWITCH_WEST) && gameState->currentCol > 0) {
+        gameState->currentCol--;
     }
-    if (navswitch_push_event_p(NAVSWITCH_EAST) && *currentCol < COLS - 1) {
-        (*currentCol)++;
+    if (navswitch_push_event_p(NAVSWITCH_EAST) && gameState->currentCol < COLS - 1) {
+        gameState->currentCol++;
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
-        if (isValidMove(*currentCol)) {
+        if (isValidMove(gameState->currentCol)) {
             if (ir_uart_write_ready_p()) {
-                ir_uart_putc('0' + *currentCol);
+                ir_uart_putc('0' + gameState->currentCol);
             }
-            dropToken(*currentCol, *currentPlayer);
-            playerSwitch(currentPlayer);
-            *playerTurn = 0;
+
+            dropToken(gameState->currentCol, gameState->currentPlayer);
+            playerSwitch(&gameState->currentPlayer);
+            gameState->playerTurn = 0;
         }
 
     }

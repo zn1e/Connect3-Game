@@ -8,10 +8,11 @@
 #define PLAYER_H
 
 #include "system.h"
+#include "game.h"
 
 void playerInit(void);
 
-void handleInput(uint8_t* currentCol, uint8_t* currentPlayer, uint8_t* playerTurn);
+void handleInput(GameState_t* gameState);
 
 void playerSwitch(uint8_t* currentPlayer);
 

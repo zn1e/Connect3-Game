@@ -11,12 +11,8 @@
 #include "player.h"
 #include "ir_uart.h"
 
-static uint8_t currentCol = 0;
-static uint8_t currentPlayer = 0;
-static uint8_t playerTurn = 0;
-static bool isPlayer1 = true;
 
-void gameInit(void)
+void gameInit(GameState_t* gameState)
 {
     system_init();
     boardInit();
@@ -27,47 +23,48 @@ void gameInit(void)
     if (ir_uart_read_ready_p()) {
         char received = ir_uart_getc();
         if (received == 'S') {
-            isPlayer1 = false;
-            currentPlayer = 2;
-            playerTurn = 0;
+            gameState->currentPlayer = 2;
+            gameState->playerTurn = 0;
         } else {
-            isPlayer1 = true;
-            currentPlayer = 1;
-            playerTurn = 1;
+            gameState->currentPlayer = 1;
+            gameState->playerTurn = 1;
             ir_uart_putc('S');
         }
     } else {
-        isPlayer1 = true;
-        currentPlayer = 1;
-        playerTurn = 1;
+        gameState->currentPlayer = 1;
+        gameState->playerTurn = 1;
         ir_uart_putc('S');
     }
+    gameState->gameActive = true;
 }
 
 int main(void)
 {
-    gameInit();
-    while (1) {
+    GameState_t gameState = {0, 1, 1, false};
+    gameInit(&gameState);
+    
+    while (gameState.gameActive) {
         
-        if (playerTurn) {
-            displayBoardTurn(currentCol, currentPlayer, 1);
-            handleInput(&currentCol, &currentPlayer, &playerTurn);
+        if (gameState.playerTurn) {
+            displayBoardTurn(&gameState, 1);
+            handleInput(&gameState);
 
-            if (checkWin(currentPlayer)) {
-                displayWinner(currentPlayer);
+            if (checkWin(gameState.currentPlayer)) {
+                gameState.gameActive = false;
+                displayWinner(gameState.currentPlayer);
                 break;
-            }  
+            }
 
         } else {
             displayBoardIdle();
-            irCommReceiveMove(&currentCol, &playerTurn);
-            
-            if (checkWin(currentPlayer)) {
-                displayWinner(currentPlayer);
+            irCommReceiveMove(&(gameState.currentCol), &(gameState.playerTurn));
+
+            if (checkWin(gameState.currentPlayer)) {
+                gameState.gameActive = false;
+                displayWinner(gameState.currentPlayer);
                 break;
             }
         }
-
     }
     return 0;
 }

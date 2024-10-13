@@ -23,7 +23,7 @@ void displayInit(void)
     pacer_init(PACER_RATE);
 }
 
-void displayBoardTurn(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
+void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn)
 {
     
     blinkCounter++;
@@ -38,11 +38,11 @@ void displayBoardTurn(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn
         for (uint8_t row = 0; row < ROWS; row++) {
             uint8_t cell = getCell(row, col);
 
-            if (cell == currentPlayer && blinkOn && blinkState) {
+            if (cell == gameState->currentPlayer && blinkOn && blinkState) {
                 continue;
             }
 
-            if (cell != 0 || (row == 0 && col == currentCol)) {
+            if (cell != 0 || (row == 0 && col == gameState->currentCol)) {
                 colPattern |= (1 << row);
             }
         }
@@ -85,6 +85,11 @@ void displayWinner(uint8_t player)
         tinygl_text("YOU WIN!");
     } else {
         tinygl_text("YOU LOSE!");
+    }
+
+    while (1) {
+        pacer_wait();
+        tinygl_update();
     }
 }
 

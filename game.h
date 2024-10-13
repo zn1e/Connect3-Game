@@ -10,7 +10,14 @@
 
 #include "system.h"
 
-void gameInit(void);
+typedef struct {
+    uint8_t currentCol;
+    uint8_t currentPlayer;
+    uint8_t playerTurn;
+    bool gameActive;
+} GameState_t;
+
+void gameInit(GameState_t* gameState);
 int main(void);
 
 
