@@ -18,6 +18,7 @@ static bool isPlayer1 = true;
 
 void gameInit(void)
 {
+    system_init();
     boardInit();
     displayInit();
     irCommInit();
