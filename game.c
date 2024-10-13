@@ -1,6 +1,6 @@
 /**
  * @file game.c
- * @author Moises Allen Montalbo (mam417)
+ * @author Moises Allen Montalbo (mam417) ShunZhi Zhang (szh139)
  * @brief
  */
 
@@ -63,4 +63,5 @@ int main(void)
         }
 
     }
+    return 0;
 }
