@@ -10,7 +10,8 @@
 #include "system.h"
 
 void displayInit(void);
-void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn);
+void displayBoardTurn(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn);
+void displayBoardIdle(void);
 void displayWinner(uint8_t player);
 
 

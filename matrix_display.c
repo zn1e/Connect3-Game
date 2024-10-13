@@ -23,7 +23,7 @@ void displayInit(void)
     pacer_init(PACER_RATE);
 }
 
-void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
+void displayBoardTurn(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
 {
     
     blinkCounter++;
@@ -47,11 +47,33 @@ void displayBoard(uint8_t currentCol, uint8_t currentPlayer, uint8_t blinkOn)
             }
         }
 
-        ledmat_display_column(~colPattern, col);
+        ledmat_display_column(colPattern, col);
 
         pacer_wait();
     }
 }
+
+void displayBoardIdle(void)
+{
+    
+    for (uint8_t col = 0; col < COLS; col++) {
+        uint8_t colPattern = 0;
+
+        for (uint8_t row = 0; row < ROWS; row++) {
+            uint8_t cell = getCell(row, col);
+
+
+            if (cell != 0 ) {
+                colPattern |= (1 << row);
+            }
+        }
+
+        ledmat_display_column(colPattern, col);
+
+        pacer_wait();
+    }
+}
+
 
 void displayWinner(uint8_t player)
 {

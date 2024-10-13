@@ -28,6 +28,7 @@ void gameInit(void)
         isPlayer1 = false;
         currentPlayer = 2;
         playerTurn = 0;
+    
     } else {
         isPlayer1= true;
         currentPlayer = 1;
@@ -39,10 +40,11 @@ void gameInit(void)
 
 int main(void)
 {
+    gameInit();
     while (1) {
         
         if (playerTurn) {
-            displayBoard(currentCol, currentPlayer, 1);
+            displayBoardTurn(currentCol, currentPlayer, 1);
             handleInput(&currentCol, &currentPlayer, &playerTurn);
 
             if (checkWin(currentPlayer)) {
@@ -51,7 +53,7 @@ int main(void)
             }  
 
         } else {
-            displayBoard(currentCol, currentPlayer, 0);
+            displayBoardIdle();
             irCommReceiveMove(&currentCol, &playerTurn);
             
             if (checkWin(currentPlayer)) {
