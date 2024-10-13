@@ -10,6 +10,7 @@
 #include "ir_comm.h"
 #include "player.h"
 #include "ir_uart.h"
+#include <stdbool.h>
 
 static uint8_t currentCol = 0;
 static uint8_t currentPlayer = 1;
@@ -39,6 +40,7 @@ void gameInit(void)
 
 int main(void)
 {
+    gameInit();
     while (1) {
         
         if (playerTurn) {
@@ -61,4 +63,5 @@ int main(void)
         }
 
     }
+    return 0;
 }
