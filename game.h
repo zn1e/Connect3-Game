@@ -15,9 +15,11 @@ typedef struct {
     uint8_t currentPlayer;
     uint8_t playerTurn;
     bool gameActive;
+    bool winner;
 } GameState_t;
 
 void gameInit(GameState_t* gameState);
+
 int main(void);
 
 

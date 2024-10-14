@@ -11,60 +11,51 @@
 #include "player.h"
 #include "ir_uart.h"
 
-
 void gameInit(GameState_t* gameState)
 {
     system_init();
     boardInit();
-    displayInit();
     irCommInit();
     playerInit();
+    displayInit();
+    
+    gameState->currentPlayer = irPlayerOrder();
 
-    if (ir_uart_read_ready_p()) {
-        char received = ir_uart_getc();
-        if (received == 'S') {
-            gameState->currentPlayer = 2;
-            gameState->playerTurn = 0;
-        } else {
-            gameState->currentPlayer = 1;
-            gameState->playerTurn = 1;
-            ir_uart_putc('S');
-        }
-    } else {
-        gameState->currentPlayer = 1;
+    if (gameState->currentPlayer == FIRST_PLAYER) {
         gameState->playerTurn = 1;
-        ir_uart_putc('S');
+    } else {
+        gameState->playerTurn = 0;
     }
+
     gameState->gameActive = true;
+}
+
+void checkUpdateWinner(GameState_t* gameState)
+{
+    if (checkWin(gameState->currentPlayer)) {
+        gameState->gameActive = false;
+        gameState->winner = true;
+    }
 }
 
 int main(void)
 {
-    GameState_t gameState = {0, 1, 1, false};
+    GameState_t gameState = {0, 0, 0, false, false};
     gameInit(&gameState);
-    
+
     while (gameState.gameActive) {
+        clearDisplay();
         
         if (gameState.playerTurn) {
             displayBoardTurn(&gameState, 1);
             handleInput(&gameState);
-
-            if (checkWin(gameState.currentPlayer)) {
-                gameState.gameActive = false;
-                displayWinner(gameState.currentPlayer);
-                break;
-            }
-
+            checkUpdateWinner(&gameState);
         } else {
-            displayBoardIdle();
-            irCommReceiveMove(&(gameState.currentCol), &(gameState.playerTurn));
-
-            if (checkWin(gameState.currentPlayer)) {
-                gameState.gameActive = false;
-                displayWinner(gameState.currentPlayer);
-                break;
-            }
+            irWaitMove(&(gameState.currentCol), &(gameState.currentPlayer), &(gameState.playerTurn));
+            displayBoardTurn(&gameState, 1);
+            checkUpdateWinner(&gameState);
         }
     }
-    return 0;
+
+    displayWinner(&(gameState.winner));
 }

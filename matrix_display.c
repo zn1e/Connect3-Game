@@ -9,10 +9,7 @@
 #include "board.h"
 #include "pacer.h"
 #include "tinygl.h"
-#include "../fonts/font5x7_1.h"
 
-#define PACER_RATE 500
-#define BLINK_RATE 2
 
 static uint8_t blinkState = 0;
 static uint8_t blinkCounter = 0;
@@ -25,7 +22,6 @@ void displayInit(void)
 
 void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn)
 {
-    
     blinkCounter++;
     if (blinkCounter >= (PACER_RATE / (2 * BLINK_RATE))) {
         blinkState = !blinkState;
@@ -42,54 +38,51 @@ void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn)
                 continue;
             }
 
-            if (cell != 0 || (row == 0 && col == gameState->currentCol)) {
+            if (cell != 0) {
+                colPattern |= (1 << row);
+            } else if (row == 0 && col == gameState->currentCol) {
                 colPattern |= (1 << row);
             }
         }
 
         ledmat_display_column(colPattern, col);
-
         pacer_wait();
     }
 }
 
-void displayBoardIdle(void)
-{
-    
-    for (uint8_t col = 0; col < COLS; col++) {
-        uint8_t colPattern = 0;
-
-        for (uint8_t row = 0; row < ROWS; row++) {
-            uint8_t cell = getCell(row, col);
-
-
-            if (cell != 0 ) {
-                colPattern |= (1 << row);
-            }
-        }
-
-        ledmat_display_column(colPattern, col);
-
-        pacer_wait();
-    }
-}
-
-
-void displayWinner(uint8_t player)
+void displayText(char* text)
 {
     tinygl_init(PACER_RATE);
-    tinygl_font_set(&font5x7_1);
     tinygl_text_speed_set(10);
+    tinygl_text_mode_set(TINYGL_TEXT_MODE_SCROLL);
+    tinygl_text(text);
 
-    if (player == 1) {
-        tinygl_text("YOU WIN!");
-    } else {
-        tinygl_text("YOU LOSE!");
-    }
+    uint8_t counter = 0;
 
     while (1) {
         pacer_wait();
         tinygl_update();
+
+        if (counter++ >= 250) {
+            break;
+        }
+    }
+
+    clearDisplay();
+}
+
+void displayWinner(bool* winner)
+{
+    if (*winner) {
+        displayText("YOU WIN!");
+    } else {
+        displayText("YOU LOSE!");
     }
 }
 
+void clearDisplay(void)
+{
+    for (uint8_t col = 0; col < COLS; col++) {
+        ledmat_display_column(0, col);
+    }
+}

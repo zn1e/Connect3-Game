@@ -61,10 +61,10 @@ display.o: ../../drivers/display.c ../../drivers/avr/system.h ../../drivers/disp
 board.o: board.c ../../drivers/avr/system.h board.h
 	$(CC) -c $(CFLAGS) $< -o $@	
 
-ir_comm.o: ir_comm.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ir_comm.h
+ir_comm.o: ir_comm.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h ir_comm.h board.h matrix_display.h player.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-player.o: player.c ../../drivers/navswitch.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h game.h
+player.o: player.c ../../drivers/navswitch.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h game.h matrix_display.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 matrix_display.o: matrix_display.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h board.h matrix_display.h game.h
@@ -90,6 +90,7 @@ clean:
 .PHONY: program
 program: game.out
 	$(OBJCOPY) -O ihex game.out game.hex
-	dfu-programmer atmega32u2 erase; dfu-programmer atmega32u2 flash game.hex; dfu-programmer atmega32u2 start
+	dfu-programmer atmega32u2:1,77 erase; dfu-programmer atmega32u2:1,77 flash game.hex; dfu-programmer atmega32u2:1,77 start
+	dfu-programmer atmega32u2:1,78 erase; dfu-programmer atmega32u2:1,78 flash game.hex; dfu-programmer atmega32u2:1,78 start
 
 

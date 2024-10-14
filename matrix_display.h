@@ -10,10 +10,17 @@
 #include "system.h"
 #include "game.h"
 
-void displayInit(void);
-void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn);
-void displayBoardIdle(void);
-void displayWinner(uint8_t player);
+#define PACER_RATE 500
+#define BLINK_RATE 2
 
+void displayInit(void);
+
+void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn);
+
+void displayText(char* text);
+
+void displayWinner(bool* winner);
+
+void clearDisplay(void);
 
 #endif
