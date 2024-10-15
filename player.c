@@ -6,6 +6,7 @@
 
 #include "player.h"
 #include "navswitch.h"
+#include "pacer.h"
 #include "board.h"
 #include "ir_uart.h"
 #include "matrix_display.h"
@@ -36,14 +37,8 @@ void handleInput(GameState_t* gameState)
                 ir_uart_putc('0' + (gameState->currentCol));
                 dropToken(gameState->currentCol, gameState->currentPlayer);
                 gameState->playerTurn = 0;
-                playerSwitch(&(gameState->currentPlayer));
                 return;
             }
         }
     }
-}
-
-void playerSwitch(uint8_t* currentPlayer)
-{
-    *currentPlayer = (*currentPlayer == 1) ? 2 : 1;
 }

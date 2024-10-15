@@ -22,6 +22,7 @@ void displayInit(void)
 
 void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn)
 {
+    pacer_wait();
     blinkCounter++;
     if (blinkCounter >= (PACER_RATE / (2 * BLINK_RATE))) {
         blinkState = !blinkState;

@@ -6,6 +6,7 @@
 
 #include "game.h"
 #include "board.h"
+#include "pacer.h"
 #include "matrix_display.h"
 #include "ir_comm.h"
 #include "player.h"
@@ -45,14 +46,14 @@ int main(void)
 
     while (gameState.gameActive) {
         clearDisplay();
-        
+
         if (gameState.playerTurn) {
             displayBoardTurn(&gameState, 1);
             handleInput(&gameState);
             checkUpdateWinner(&gameState);
         } else {
+            pacer_wait();
             irWaitMove(&(gameState.currentCol), &(gameState.currentPlayer), &(gameState.playerTurn));
-            displayBoardTurn(&gameState, 1);
             checkUpdateWinner(&gameState);
         }
     }

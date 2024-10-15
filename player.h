@@ -14,7 +14,4 @@ void playerInit(void);
 
 void handleInput(GameState_t* gameState);
 
-void playerSwitch(uint8_t* currentPlayer);
-
-
 #endif

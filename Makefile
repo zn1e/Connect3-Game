@@ -58,13 +58,13 @@ prescale.o: ../../drivers/avr/prescale.c ../../drivers/avr/prescale.h ../../driv
 display.o: ../../drivers/display.c ../../drivers/avr/system.h ../../drivers/display.h ../../drivers/ledmat.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-board.o: board.c ../../drivers/avr/system.h board.h
+board.o: board.c ../../drivers/avr/system.h board.h 
 	$(CC) -c $(CFLAGS) $< -o $@	
 
 ir_comm.o: ir_comm.c ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h ir_comm.h board.h matrix_display.h player.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
-player.o: player.c ../../drivers/navswitch.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h game.h matrix_display.h
+player.o: player.c ../../drivers/navswitch.h ../../utils/pacer.h ../../drivers/avr/ir_uart.h ../../drivers/avr/system.h board.h player.h game.h matrix_display.h
 	$(CC) -c $(CFLAGS) $< -o $@
 
 matrix_display.o: matrix_display.c ../../drivers/avr/system.h ../../drivers/ledmat.h ../../utils/pacer.h ../../utils/tinygl.h board.h matrix_display.h game.h
@@ -90,7 +90,7 @@ clean:
 .PHONY: program
 program: game.out
 	$(OBJCOPY) -O ihex game.out game.hex
-	dfu-programmer atmega32u2:1,77 erase; dfu-programmer atmega32u2:1,77 flash game.hex; dfu-programmer atmega32u2:1,77 start
-	dfu-programmer atmega32u2:1,78 erase; dfu-programmer atmega32u2:1,78 flash game.hex; dfu-programmer atmega32u2:1,78 start
+	dfu-programmer atmega32u2:1,44 erase; dfu-programmer atmega32u2:1,44 flash game.hex; dfu-programmer atmega32u2:1,44 start
+	dfu-programmer atmega32u2:1,45 erase; dfu-programmer atmega32u2:1,45 flash game.hex; dfu-programmer atmega32u2:1,45 start
 
 
