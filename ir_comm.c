@@ -70,7 +70,8 @@ void irWaitMove(uint8_t* opponentCol, uint8_t* playerNum, uint8_t* playerTurn)
                 if (isValidMove(*opponentCol)) {
                     uint8_t opponentPlayer = (*playerNum == FIRST_PLAYER) ? SECOND_PLAYER : FIRST_PLAYER;
                     dropToken(*opponentCol, opponentPlayer);
-                    *playerTurn = 1; 
+                    *playerTurn = 1;
+                    pacer_wait(); 
                     break;  
                 } 
             }

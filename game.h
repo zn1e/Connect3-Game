@@ -20,6 +20,8 @@ typedef struct {
 
 void gameInit(GameState_t* gameState);
 
+void checkUpdateWinner(GameState_t* gameState, bool* win);
+
 int main(void);
 
 

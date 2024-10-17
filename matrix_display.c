@@ -59,14 +59,12 @@ void displayText(char* text)
     tinygl_text(text);
 
     uint8_t counter = 0;
+    int maxCount = 2 * PACER_RATE;
 
-    while (1) {
+    while (counter < maxCount) {
         pacer_wait();
         tinygl_update();
-
-        if (counter++ >= 250) {
-            break;
-        }
+        counter++;
     }
 
     clearDisplay();

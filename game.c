@@ -26,16 +26,19 @@ void gameInit(GameState_t* gameState)
         gameState->playerTurn = 1;
     } else {
         gameState->playerTurn = 0;
+        while (!ir_uart_read_ready_p()) {
+            pacer_wait();
+        }
     }
-
     gameState->gameActive = true;
 }
 
-void checkUpdateWinner(GameState_t* gameState)
+void checkUpdateWinner(GameState_t* gameState, bool* win)
 {
     if (checkWin(gameState->currentPlayer)) {
         gameState->gameActive = false;
         gameState->winner = true;
+        *win = true;
     }
 }
 
@@ -43,18 +46,19 @@ int main(void)
 {
     GameState_t gameState = {0, 0, 0, false, false};
     gameInit(&gameState);
+    bool win = false;
 
-    while (gameState.gameActive) {
+    while (gameState.gameActive && !win) {
+        pacer_wait();
         clearDisplay();
 
         if (gameState.playerTurn) {
             displayBoardTurn(&gameState, 1);
             handleInput(&gameState);
-            checkUpdateWinner(&gameState);
+            checkUpdateWinner(&gameState, &win);
         } else {
-            pacer_wait();
             irWaitMove(&(gameState.currentCol), &(gameState.currentPlayer), &(gameState.playerTurn));
-            checkUpdateWinner(&gameState);
+            checkUpdateWinner(&gameState, &win);
         }
     }
 

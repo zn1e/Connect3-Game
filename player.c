@@ -37,6 +37,7 @@ void handleInput(GameState_t* gameState)
                 ir_uart_putc('0' + (gameState->currentCol));
                 dropToken(gameState->currentCol, gameState->currentPlayer);
                 gameState->playerTurn = 0;
+                pacer_wait();
                 return;
             }
         }
