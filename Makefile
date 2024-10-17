@@ -90,6 +90,6 @@ clean:
 .PHONY: program
 program: game.out
 	$(OBJCOPY) -O ihex game.out game.hex
-	dfu-programmer atmega32u2:1,6 erase; dfu-programmer atmega32u2:1,6 flash game.hex; dfu-programmer atmega32u2:1,6 start
-	dfu-programmer atmega32u2:1,7 erase; dfu-programmer atmega32u2:1,7 flash game.hex; dfu-programmer atmega32u2:1,7 start
+	dfu-programmer atmega32u2:1,10 erase; dfu-programmer atmega32u2:1,10 flash game.hex; dfu-programmer atmega32u2:1,10 start
+	dfu-programmer atmega32u2:1,11 erase; dfu-programmer atmega32u2:1,11 flash game.hex; dfu-programmer atmega32u2:1,11 start
 

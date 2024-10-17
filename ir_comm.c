@@ -1,7 +1,9 @@
 /**
  * @file ir_comm.c
  * @author Moises Allen Montalbo (mam417)
- * @brief
+ * @brief This module implements the IR communications between the two
+ * microcontrollers. It includes initializing the IR comms, ordering the player,
+ * and waiting for the move of current player taking turn.
  */
 
 #include "ir_comm.h"
@@ -13,11 +15,18 @@
 #include "tinygl.h"
 #include "../../fonts/font5x7_1.h"
 
+/**
+ * Initializes the IR communicat ion by setting up the IR UART interface.
+ */
 void irCommInit(void)
 {
     ir_uart_init();
 }
 
+/**
+ * Determine the player order for the game using IR communication.
+ * @return the player's number
+ */
 uint8_t irPlayerOrder(void)
 {
     uint8_t playerNum = 0;
@@ -52,6 +61,7 @@ uint8_t irPlayerOrder(void)
         }
     }
 
+    // Short delay before proceeding to ensure proper synchronization
     for (int i = 0; i < 1500; i++) {
         pacer_wait();
     }
@@ -59,6 +69,13 @@ uint8_t irPlayerOrder(void)
     return playerNum;  
 }
 
+/**
+ * Wait for the opponent's move via IR communication and update the board
+ * accordingly.
+ * @param opponentCol column of the opponent's move
+ * @param playerNum number of current player
+ * @param playerTurn flag describing the player turn
+ */
 void irWaitMove(uint8_t* opponentCol, uint8_t* playerNum, uint8_t* playerTurn)
 {
     tinygl_init(PACER_RATE);
