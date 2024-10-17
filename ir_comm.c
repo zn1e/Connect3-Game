@@ -86,5 +86,6 @@ void irWaitMove(uint8_t* opponentCol, uint8_t* playerNum, uint8_t* playerTurn)
             }
         }
     }
+    clearDisplay();
 }
 

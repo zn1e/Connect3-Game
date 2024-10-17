@@ -19,7 +19,7 @@ void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn);
 
 void displayText(char* text);
 
-void displayWinner(bool* winner);
+void displayWinner(uint8_t winner);
 
 void clearDisplay(void);
 

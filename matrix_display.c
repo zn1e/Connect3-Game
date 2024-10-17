@@ -40,8 +40,10 @@ void displayBoardTurn(GameState_t* gameState, uint8_t blinkOn)
 
             if (cell != 0) {
                 colPattern |= (1 << row);
-            } else if (row == 0 && col == gameState->currentCol) {
-                colPattern |= (1 << row);
+            } 
+
+            if (col == gameState->currentCol && blinkOn && gameState->playerTurn) {
+                colPattern |= (1<< 0);
             }
         }
 
@@ -69,12 +71,12 @@ void displayText(char* text)
     clearDisplay();
 }
 
-void displayWinner(bool* winner)
+void displayWinner(uint8_t winner)
 {
-    if (*winner) {
-        displayText("YOU WIN!");
+    if (winner == 1) {
+        displayText("P1 WINS!");
     } else {
-        displayText("YOU LOSE!");
+        displayText("P2 WINS!");
     }
 }
 

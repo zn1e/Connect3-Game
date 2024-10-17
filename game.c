@@ -31,22 +31,24 @@ void gameInit(GameState_t* gameState)
     gameState->gameActive = true;
 }
 
-void checkUpdateWinner(GameState_t* gameState, bool* win)
+void checkUpdateWinner(GameState_t* gameState, uint8_t* winner)
 {
-    if (checkWin(gameState->currentPlayer == FIRST_PLAYER ? SECOND_PLAYER : FIRST_PLAYER)) {
+    if (checkWin(1)) {
         gameState->gameActive = false;
-        gameState->winner = false;
-        *win = true;
+        *winner = 1;
+    } else if (checkWin(2)) {
+        gameState->gameActive = false;
+        *winner = 2;
     }
 }
 
 int main(void)
 {
-    GameState_t gameState = {0, 0, 0, false, true};
+    GameState_t gameState = {0, 0, 0, false};
     gameInit(&gameState);
-    bool win = false;
+    uint8_t winner = 0;
 
-    while (gameState.gameActive && !win) {
+    while (gameState.gameActive && winner == 0) {
         clearDisplay();
 
         if (gameState.playerTurn) {
@@ -54,9 +56,9 @@ int main(void)
             handleInput(&gameState);
         } else {
             irWaitMove(&(gameState.currentCol), &(gameState.currentPlayer), &(gameState.playerTurn));
-            checkUpdateWinner(&gameState, &win);
         }
+        checkUpdateWinner(&gameState, &winner);   
     }
 
-    displayWinner(&(gameState.winner));
+    displayWinner(winner);
 }

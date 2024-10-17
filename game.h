@@ -15,12 +15,11 @@ typedef struct {
     uint8_t currentPlayer;
     uint8_t playerTurn;
     bool gameActive;
-    bool winner;
 } GameState_t;
 
 void gameInit(GameState_t* gameState);
 
-void checkUpdateWinner(GameState_t* gameState, bool* win);
+void checkUpdateWinner(GameState_t* gameState, uint8_t* winner);
 
 int main(void);
 

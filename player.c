@@ -32,8 +32,7 @@ void handleInput(GameState_t* gameState)
     }
     if (navswitch_push_event_p(NAVSWITCH_SOUTH)) {
         if (isValidMove(gameState->currentCol)) {
-            gameState->playerTurn = 0;
-
+            
             if (ir_uart_write_ready_p()) {
                 ir_uart_putc('0' + (gameState->currentCol));
                 
@@ -43,6 +42,7 @@ void handleInput(GameState_t* gameState)
                 ir_uart_getc();
 
                 dropToken(gameState->currentCol, gameState->currentPlayer);
+                gameState->playerTurn = 0;
                 pacer_wait();
                 return;
             }
