@@ -25,26 +25,35 @@ uint8_t irPlayerOrder(void)
     if (!ir_uart_read_ready_p()) {
         ir_uart_putc('1');  
 
-        while (!ir_uart_read_ready_p()) {
+        int timeout = 3000;
+        while (!ir_uart_read_ready_p() && timeout > 0) {
             pacer_wait();
+            timeout--;
         }
-        ir_uart_getc();
 
-        for (int i = 0; i < 1500; i++) {
-            pacer_wait();
+        if (ir_uart_read_ready_p()) {
+            char received = ir_uart_getc();
+                
+            if (received == '2') {
+                playerNum = FIRST_PLAYER;
+            }
+        } else {
+            playerNum = FIRST_PLAYER;
         }
-        playerNum = FIRST_PLAYER; 
     } else {
         while (!ir_uart_read_ready_p()) {
-            continue;
-        }
-        ir_uart_getc(); 
-        ir_uart_putc('2'); 
-
-        for (int i = 0; i < 1500; i++) {
             pacer_wait();
         }
-        playerNum = SECOND_PLAYER; 
+        char received = ir_uart_getc();
+
+        if (received == '1') {
+            ir_uart_putc('2');
+            playerNum = SECOND_PLAYER;
+        }
+    }
+
+    for (int i = 0; i < 1500; i++) {
+        pacer_wait();
     }
 
     return playerNum;  
@@ -70,8 +79,8 @@ void irWaitMove(uint8_t* opponentCol, uint8_t* playerNum, uint8_t* playerTurn)
                 if (isValidMove(*opponentCol)) {
                     uint8_t opponentPlayer = (*playerNum == FIRST_PLAYER) ? SECOND_PLAYER : FIRST_PLAYER;
                     dropToken(*opponentCol, opponentPlayer);
+                    ir_uart_putc('A');
                     *playerTurn = 1;
-                    pacer_wait(); 
                     break;  
                 } 
             }
