@@ -1,6 +1,6 @@
 # File:   Makefile
-# Author: Moises Allen Montalbo
-# Date:   12 Oct 2024
+# Author: Moises Allen Montalbo, ShunZhi Zhang (szh139)
+# Date:   17 Oct 2024
 # Descr:  Makefile for Connect3
 
 # Definitions.

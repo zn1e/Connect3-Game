@@ -1,14 +1,16 @@
 # Connect3 Game
+# Author: Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
 
 ## Overview
-**Connect3** is a two-player game where players take turns dropping tokens into a grid using a navigation switch. The goal is to connect three tokens horizontally, vertically, or diagonally to win. The game is played using two ATMega32u2 microcontrollers, with IR communication to handle player moves and an LED matrix to display the game board. *Note: Only **6** rows are used in the game. The first row is for selecting the column for the token to be dropped.*
+**Connect3** is a two-player game where players take turns dropping tokens into a grid using a navigation switch. The goal is to connect three tokens horizontally, vertically, or diagonally to win. The game is played using two UCFK4, with IR communication to handle player moves and an LED matrix to display the game board. 
+>*Note: Only **6** rows are used in the game. The first row is for selecting the column for the token to be dropped.*
 
 
 ## How to Play
 
 ### Setup
 1. **Power on both microcontrollers**: Plug the microcontrollers on USB port.
-2. **Booting the setup**: Locate the directory of the file. Open the terminal from the directory and run `sudo make program` for both microcontrollers.
+2. **Booting the setup**: Locate the directory of the file. Open the terminal from the directory and run `sudo make program` for both microcontrollers. Make sure all the utils used are within the higher hierarchy of the file.
 3. **Player Order**: The game automatically determines which player goes first using IR communication. The LED matrix displays `WAITING` whenever the other player is taking a turn.
 
 ### Controls
