@@ -1,6 +1,6 @@
 /**
  * @file game.h
- * @author Moises Allen Montalbo (mam417) ShunZhi Zhang (szh139)
+ * @author Moises Allen Montalbo (mam417)
  * @brief This is the header of main module of the game that includes game initialization, checking and updating
  * the winner, and taking turns between the player.
  */
