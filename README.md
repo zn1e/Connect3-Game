@@ -1,5 +1,5 @@
 # Connect3 Game
-# Author: Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
+# Author: Moises Allen Montalbo
 
 ## Overview
 **Connect3** is a two-player game where players take turns dropping tokens into a grid using a navigation switch. The goal is to connect three tokens horizontally, vertically, or diagonally to win. The game is played using two UCFK4, with IR communication to handle player moves and an LED matrix to display the game board. 
