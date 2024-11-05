@@ -1,6 +1,6 @@
 /**
  * @file player.h
- * @author Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
+ * @author Moises Allen Montalbo (mam417)
  * @brief Header file for player input handling and initialization of game.
  */
 
