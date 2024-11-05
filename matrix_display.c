@@ -1,6 +1,6 @@
 /**
  * @file display.c
- * @author Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
+ * @author Moises Allen Montalbo (mam417)
  * @brief Module for implementing the display on LED matrix for each microcontrollers.
  * This includes function for initialization, displaying the state of the board on 
  * player's turn, displaying text and winner, and clearing the display.
