@@ -1,6 +1,6 @@
 /**
  * @file board.h
- * @author Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
+ * @author Moises Allen Montalbo (mam417)
  * @brief This module is responsible for the state of the board. It contains
  * function for initializing the board, checking if a move is valid, drops 
  * token in the board, checking if there's a winner, and getting a cell to 
