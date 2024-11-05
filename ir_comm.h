@@ -1,6 +1,6 @@
 /**
  * @file ir_comm.h
- * @author Moises Allen Montalbo (mam417), ShunZhi Zhang (szh139)
+ * @author Moises Allen Montalbo (mam417)
  * @brief This header implements the IR communications between the two
  * microcontrollers. It includes initializing the IR comms, ordering the player,
  * and waiting for the move of current player taking turn.
